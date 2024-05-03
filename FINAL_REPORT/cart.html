@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minecraft Pet Shop</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link href="main.css" rel="stylesheet">
+	  <style>
+    /* Add some custom styles if needed */
+    body {
+	  padding-top : 100px;
+	  display: flex;
+    }
+	
+	#products{
+	width: 80%;
+	}
+	#products table{
+	width: 80%;
+	border-collapse: collapse;
+	}
+	#products table tr th, #products table tr td{
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+	width: 16%;
+	}
+	#products table tr th{
+	background-color: black;
+	color:white;
+	}
+	img{
+	max-width: 100px;
+	max-height: 100px;
+	}
+	/*[Section CSS-B start]*/
+	tr:hover{
+	background-color: #fcefdf;
+    color: #2c2111;
+	}
+    tr b:hover{
+    color: #2c2111;
+	}
+    .checkbox{
+    width: 30px;
+    height: 30px;
+    }
+    .quantity{
+    width: 30px;
+    height: 20px;
+    border: solid #c0c0c0 1px;
+    text-align: center;
+    }
+
+    b{
+        color: #fff;
+    }
+
+	#flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .container{
+        display: flex;
+    }
+
+
+  #checkout_btn{
+    font-size: 25px;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    color: #d4d4d4;
+    background-color: #787878;
+    border-radius: 5px;
+    top: 35px;
+    left: 61px;
+    transform: translateX(-50%);
+    transition-duration: .3s;
+    text-align: center;
+    /* position: fixed; */
+    z-index: 99;
+  }
+  #checkout_btn:hover{
+    transform: translate(-50%, -3px);
+    box-shadow: 0 3px 10px 0px #787878;
+    cursor: pointer;
+  }
+	
+  </style>
+  </head>
+  <body>
+
+    <div class="container">
+        <div id="products">
+            <table>
+              <thead>
+                <tr>
+                  <td><input type="checkbox" name="checkboxall"></td>
+                  <th>Image</th>
+                  <th>Product</th>
+                  <th>Storage</th>
+                  <th>Single Price</th>
+                  <th>Amount</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+        </div>
+        <div id="checkout_btn">結帳</div>
+    </div>
+	
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script src="nav_bar.js"></script>
+	<script src="cart.js"></script>
+  </body>
+</html>
