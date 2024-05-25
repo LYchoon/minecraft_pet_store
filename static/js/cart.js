@@ -1,18 +1,18 @@
 const products =[
-	{'name': 'Bee', 'price': 10, 'habitat': 'sky', 'behavior': 'neutral', 'image_url': './resource/img/Bee_types.webp', 'storage':10, 'amount':99},
-	{'name': 'Chicken', 'price': 20, 'habitat': 'land', 'behavior': 'passive', 'image_url': './resource/img/Chicken.webp', 'storage':100},
-	{'name': 'Cow', 'price': 50, 'habitat': 'land', 'behavior': 'passive', 'image_url': './resource/img/Cow.webp', 'storage':30},
-	{'name': 'Creeper', 'price': 120, 'habitat': 'land', 'behavior': 'hostile', 'image_url': './resource/img/Creeper.webp', 'storage':12},
-	{'name': 'Dolphin', 'price': 250, 'habitat': 'ocean', 'behavior': 'neutral', 'image_url': './resource/img/Dolphin.webp', 'storage':10},
-	{'name': 'Fox', 'price': 150, 'habitat': 'land', 'behavior': 'neutral', 'image_url': './resource/img/Fox.webp', 'storage':28},
-	{'name': 'Guardian', 'price': 600, 'habitat': 'ocean', 'behavior': 'hostile', 'image_url': './resource/img/Guardian.webp', 'storage':3},
-	{'name': 'Axolotl', 'price': 200, 'habitat': 'ocean', 'behavior': 'passive', 'image_url': './resource/img/Lucy_Axolotl.webp', 'storage':6},
-	{'name': 'Phantom', 'price': 400, 'habitat': 'sky', 'behavior': 'hostile', 'image_url': './resource/img/Phantom.webp', 'storage':4},
-	{'name': 'Pig', 'price': 40, 'habitat': 'land', 'behavior': 'passive', 'image_url': './resource/img/Pig.webp', 'storage':65},
-	{'name': 'Parrot', 'price': 80, 'habitat': 'sky', 'behavior': 'passive', 'image_url': './resource/img/Red_Parrot.webp', 'storage':30},
-	{'name': 'Sheep', 'price': 40, 'habitat': 'land', 'behavior': 'passive', 'image_url': './resource/img/Sheep.webp', 'storage':100},
-	{'name': 'Slime', 'price': 100, 'habitat': 'land', 'behavior': 'hostile', 'image_url': './resource/img/Slime.webp', 'storage':32},
-	{'name': 'Wolf', 'price': 140, 'habitat': 'land', 'behavior': 'neutral', 'image_url': './resource/img/Wolf.webp', 'storage':91}
+	{'name': 'Bee', 'price': 10, 'habitat': 'sky', 'behavior': 'neutral', 'image_url': '/static/img/Bee_types.webp', 'storage':10, 'amount':99},
+	{'name': 'Chicken', 'price': 20, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Chicken.webp', 'storage':100},
+	{'name': 'Cow', 'price': 50, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Cow.webp', 'storage':30},
+	{'name': 'Creeper', 'price': 120, 'habitat': 'land', 'behavior': 'hostile', 'image_url': '/static/img/Creeper.webp', 'storage':12},
+	{'name': 'Dolphin', 'price': 250, 'habitat': 'ocean', 'behavior': 'neutral', 'image_url': '/static/img/Dolphin.webp', 'storage':10},
+	{'name': 'Fox', 'price': 150, 'habitat': 'land', 'behavior': 'neutral', 'image_url': '/static/img/Fox.webp', 'storage':28},
+	{'name': 'Guardian', 'price': 600, 'habitat': 'ocean', 'behavior': 'hostile', 'image_url': '/static/img/Guardian.webp', 'storage':3},
+	{'name': 'Axolotl', 'price': 200, 'habitat': 'ocean', 'behavior': 'passive', 'image_url': '/static/img/Lucy_Axolotl.webp', 'storage':6},
+	{'name': 'Phantom', 'price': 400, 'habitat': 'sky', 'behavior': 'hostile', 'image_url': '/static/img/Phantom.webp', 'storage':4},
+	{'name': 'Pig', 'price': 40, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Pig.webp', 'storage':65},
+	{'name': 'Parrot', 'price': 80, 'habitat': 'sky', 'behavior': 'passive', 'image_url': '/static/img/Red_Parrot.webp', 'storage':30},
+	{'name': 'Sheep', 'price': 40, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Sheep.webp', 'storage':100},
+	{'name': 'Slime', 'price': 100, 'habitat': 'land', 'behavior': 'hostile', 'image_url': '/static/img/Slime.webp', 'storage':32},
+	{'name': 'Wolf', 'price': 140, 'habitat': 'land', 'behavior': 'neutral', 'image_url': '/static/img/Wolf.webp', 'storage':91}
 	
 ];
 
