@@ -5,7 +5,7 @@ document.write(' \
 	<div class="container-fluid d-flex ">\
 	  <a href="Home.html" class="logo d-flex align-items-center  me-auto me-lg-0">\
 		<!-- Uncomment the line below if you also wish to use an image logo -->\
-		<img src="./resource/img/logo.webp" alt="">\
+		<img src="/static/img/logo.webp" alt="">\
 		<i class="bi bi-camera"></i>\
 		<h1>Minecraft Pet Shop</h1>\
 	  </a>\
