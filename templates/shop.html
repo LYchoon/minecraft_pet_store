@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minecraft Pet Shop</title>
+	<link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	  <style>
+    /* Add some custom styles if needed */
+    body {
+	  padding-top : 100px;
+	  display: flex;
+    }
+	
+	#categories{
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  border: 1px solid black;
+	  border-radius: 5px;
+	  padding-left: 10px;
+	  padding : 10px;
+	  width : 120px;
+	  height : 320px;
+
+	}
+	
+	#categories h4{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	}
+	#products{
+	width: 80%;
+	padding-left : 20px;
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	}
+	img{
+	max-width: 100px;
+	max-height: 100px;
+	}
+	
+	.select{
+	border-radius: 5px;
+	marging: 12px;
+	}
+	
+	.items{
+	background-color:#F6E9B2;
+	text-align:center;
+	border-radius:10px;
+	width:165px;
+	height:280px;
+	color:black;
+	margin: 20px 15px;
+	}
+	.items img{
+	padding-top:8px;
+	}
+	
+	.items table{
+	align:center;
+	font-size:14px;
+	margin:0 auto;
+	}
+	.fav_btn{
+	max-width:24px;
+	max-height:24px;
+	cursor: pointer;
+	margin-right:6px;
+	}
+
+	.add_to_cart{
+	max-width:24px;
+	max-height:24px;
+	cursor: pointer;
+	}
+
+	.name{
+	font-weight:bold;
+	}
+
+  </style>
+  </head>
+  <body>
+	<div id="categories">
+		<h4>Filter</h4>
+		
+		<input placeholder="<price" id="max_price">
+		<input placeholder=">price" id="min_price">
+		
+		<label for="habitat">Habitat</label>
+		<select id="habitat" class="select">
+			<option value="all">ALL</option>
+			<option value="land">Land</option>
+			<option value="ocean">Ocean</option>
+			<option value="sky">Sky</option>
+		</select>
+		
+		<label for="behavior">Behavior</label>
+		<select id="behavior" class="select">
+			<option value="all">ALL</option>
+			<option value="passive">Passive</option>
+			<option value="neutral">Neutral</option>
+			<option value="hostile">Hostile</option>
+		</select>
+		
+		<div>
+        <input type="checkbox" id="fav">
+        <label for="fav">Favorite</label>
+        </div>
+		
+	</div>
+	
+	<div id="products">
+	</div>
+	
+	<script src="/static/js/shop.js"></script>
+	<!-- Julia:我發現這好像沒用？但不確定所以沒刪 -->
+	<!-- <script src="/static/js/bootstrap/bootstrap.bundle.min.js" ></script> -->
+	<script src="/static/js/nav_bar.js"></script>
+  </body>
+</html>
