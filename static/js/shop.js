@@ -1,40 +1,62 @@
-let products =[
-	{'name': 'Bee', 'price': 10, 'habitat': 'sky', 'behavior': 'neutral', 'image_url': '/static/img/Bee_types.webp', 'storage':10, 'fav':false},
-	{'name': 'Chicken', 'price': 20, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Chicken.webp', 'storage':100, 'fav':false},
-	{'name': 'Cow', 'price': 50, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Cow.webp', 'storage':30, 'fav':false},
-	{'name': 'Creeper', 'price': 120, 'habitat': 'land', 'behavior': 'hostile', 'image_url': '/static/img/Creeper.webp', 'storage':12, 'fav':true},
-	{'name': 'Dolphin', 'price': 250, 'habitat': 'ocean', 'behavior': 'neutral', 'image_url': '/static/img/Dolphin.webp', 'storage':10, 'fav':false},
-	{'name': 'Fox', 'price': 150, 'habitat': 'land', 'behavior': 'neutral', 'image_url': '/static/img/Fox.webp', 'storage':28, 'fav':false},
-	{'name': 'Guardian', 'price': 600, 'habitat': 'ocean', 'behavior': 'hostile', 'image_url': '/static/img/Guardian.webp', 'storage':3, 'fav':true},
-	{'name': 'Axolotl', 'price': 200, 'habitat': 'ocean', 'behavior': 'passive', 'image_url': '/static/img/Lucy_Axolotl.webp', 'storage':6, 'fav':false},
-	{'name': 'Phantom', 'price': 400, 'habitat': 'sky', 'behavior': 'hostile', 'image_url': '/static/img/Phantom.webp', 'storage':4, 'fav':false},
-	{'name': 'Pig', 'price': 40, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Pig.webp', 'storage':65, 'fav':false},
-	{'name': 'Parrot', 'price': 80, 'habitat': 'sky', 'behavior': 'passive', 'image_url': '/static/img/Red_Parrot.webp', 'storage':30, 'fav':false},
-	{'name': 'Sheep', 'price': 40, 'habitat': 'land', 'behavior': 'passive', 'image_url': '/static/img/Sheep.webp', 'storage':100, 'fav':false},
-	{'name': 'Slime', 'price': 100, 'habitat': 'land', 'behavior': 'hostile', 'image_url': '/static/img/Slime.webp', 'storage':32, 'fav':false},
-	{'name': 'Wolf', 'price': 140, 'habitat': 'land', 'behavior': 'neutral', 'image_url': '/static/img/Wolf.webp', 'storage':91, 'fav':true}
-	
-];
+let products = []
+let favourites = []
+
+//get products data
+document.addEventListener('DOMContentLoaded', () => {
+	fetch('/api/shop')
+	  .then(response => response.json())
+	  .then(data => {
+		data.forEach(product => {
+			products.push(product);
+		});
+		display_products(products);
+	  })
+	  .catch(error => console.error('Error fetching data:', error));
+  });
+
+  //get favourite data
+  document.addEventListener('DOMContentLoaded', () => {
+	upd_fav_data();
+  });
+
+  function upd_fav_data(){
+	fetch('/api/fav')
+	  .then(response => response.json())
+	  .then(data => {
+		data.forEach(fav => {
+			if(favourites.includes(fav)){
+			}else{
+				favourites.push(fav);
+			}
+			
+		});
+	  })
+	  .catch(error => console.error('Error fetching data:', error));
+  }
 
 let add_to_cart_btn = document.getElementsByClassName("add_to_cart");
 
 function display_products(products_to_display){
+  upd_fav_data();
   const pbody = document.getElementById('products');
   pbody.innerHTML = '';
   for(let i = 0; i < products_to_display.length; i++){
     let product_info = '';
 	let fav_img = "/static/img/fav.png";
-	if(products_to_display[i].fav){
+	let faved = favourites.includes(Number(products_to_display[i].id));
+	let upd = 'add';
+	if(faved){
 		fav_img = "/static/img/faved.png";
+		upd = 'remove';
 	}
     product_info += '<div class="items">';
-    product_info += `<img src="${products_to_display[i].image_url}" alt="${products_to_display[i].name}">`;
+    product_info += `<img src="/static/img/${products_to_display[i].image}" alt="${products_to_display[i].name}">`;
     product_info += `<div class="name">${products_to_display[i].name}</div>`;
     product_info += `<table><tr><td class="behavior">${products_to_display[i].behavior}</td>`;
     product_info += `<td class="habitat">${products_to_display[i].habitat}</td></tr></table>`;
     product_info += `<div class="storage">Storage:${products_to_display[i].storage}</div>`;
     product_info += `<p class="price">$${products_to_display[i].price}</p>`;
-    product_info += `<img src=${fav_img} class="fav_btn" iid="${i}">`;
+    product_info += ` <img src=${fav_img} class="fav_btn" iid="${products_to_display[i].id}"></a>`;
     product_info += `<img src="/static/img/shopping-cart.png" class="add_to_cart">`;
     product_info += '</div>';
     pbody.innerHTML += product_info;
@@ -57,9 +79,9 @@ function apply_filter(){
 	let c_habitat = products_to_filter[i].habitat;
 	let c_behavior = products_to_filter[i].behavior;
 	let c_price = products_to_filter[i].price;
-	
+	let c_id = products_to_filter[i].id;
 	if(fav_checked){
-		fit_fav=products_to_filter[i].fav;
+		fit_fav=(favourites.includes(c_id));
 	}
 	
 	if(behavior === "all"){
@@ -110,14 +132,34 @@ Array.from(add_to_cart_btn).forEach(function(input){
 function upd_fav(input){
 	let ind = input.getAttribute('iid');
 	input.addEventListener("click",function(){
-		console.log(input.getAttribute('iid'));
-		if(products[ind].fav){
+		if(favourites.includes(Number(ind))){
 			input.src="/static/img/fav.png";
-			products[ind].fav=false;
+			favourites = favourites.filter(function(item){
+				return item !== Number(ind)
+			})
+			fetch('/api/remove_fav', {
+				'method': 'POST',
+				'headers': {
+					'Content-Type': 'application/json'
+				},
+				'body': JSON.stringify({data: ind})
+			})
+			.then(response => response.json())
+			.catch(error => {console.error('Error:',error)});
 		}else{
 			input.src="/static/img/faved.png";
-			products[ind].fav=true;
+			favourites.push(Number(ind));
+			fetch('/api/add_fav', {
+				'method': 'POST',
+				'headers': {
+					'Content-Type': 'application/json'
+				},
+				'body': JSON.stringify({data: ind})
+			})
+			.then(response => response.json())
+			.catch(error => {console.error('Error:',error)});
 		}
+		upd_fav_data();
 	})
 }
 
