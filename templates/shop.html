@@ -72,6 +72,13 @@
 	margin-right:6px;
 	}
 
+	.faved_btn{
+	max-width:24px;
+	max-height:24px;
+	cursor: pointer;
+	margin-right:6px;
+	}
+
 	.add_to_cart{
 	max-width:24px;
 	max-height:24px;
@@ -118,6 +125,22 @@
 	</div>
 	
 	<div id="products">
+		{% for i in products_list %}
+			<div class="items">
+			<img src="/static/img/{{ i.image }}" alt={{ i.name }}>
+			<div class="name">{{ i.name }}</div>
+			<table><tr><td class="behavior">{{ i.behavior }}</td>
+			<td class="habitat">{{ i.habitat }}</td></tr></table>
+			<div class="storage">Storage: {{ i.storage }}</div>
+			<p class="price">$ {{ i.price }}</p>
+			{% if i.fav %}
+				<img src="/static/img/faved.png" class="fav_btn" iid="{{ i.id }}">
+			{% else %}
+				<img src="/static/img/fav.png" class="fav_btn" iid="{{ i.id }}">
+			{% endif %}
+			<img src="/static/img/shopping-cart.png" class="add_to_cart" name='{{ i.name }}' iid="{{ i.id }}">
+			</div>
+		{% endfor %}
 	</div>
 	
 	<script src="./static/js/shop.js"></script>

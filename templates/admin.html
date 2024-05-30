@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minecraft Pet Store</title>
+	<link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/main.css" rel="stylesheet">
+	  <style>
+    /* Add some custom styles if needed */
+    .bgImg{
+        width: 100%;
+    }
+	
+    .link {
+      text-align: center;
+    }
+
+    .title {
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        text-align: center;
+    }
+
+    .admin_container{
+        display: flex;
+    }
+
+  </style>
+  </head>
+  <body>
+	{% include 'nav.html' %}
+    <div class="title">
+        <h1>Manage board</h1>
+        <h1>管理面板</h1>
+    </div>
+
+    <div class="admin_container">
+        <div>
+            <form id = "control">
+                <fieldset>
+                    <legned>Manager</legned>
+                    <input type="radio" id="products" value="products" checked />
+                    <label for="products">Products manager</label>
+                    <br>
+                    <input type="radio" id="storage" value="storage"/>
+                    <label for="storage">Storage manager</label>
+                    <br>
+                    <input type="radio" id="account" value="account"/>
+                    <label for="account">Account manager</label>
+                </fieldset>
+            </form>
+        </div>
+        <div class="workspace" id="workspace">
+
+        </div>
+    </div>
+    <script src="./static/js/admin.js"></script>
+
+  </body>
+</html>
