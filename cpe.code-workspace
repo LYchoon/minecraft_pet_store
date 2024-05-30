@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../../../cpe"
+		}
+	],
+	"launch": {
+		"version": "0.2.0",
+		"configurations": []
+	}
+}
