@@ -1,121 +1,126 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Minecraft Pet Shop</title>
-	<link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-	<link href="/static/css/main.css" rel="stylesheet">
-	  <style>
-    /* Add some custom styles if needed */
-    body {
-	  padding-top : 100px;
-	  display: flex;
-    }
-	
-	#products{
-	width: 80%;
-	}
-	#products table{
-	width: 80%;
-	border-collapse: collapse;
-	}
-	#products table tr th, #products table tr td{
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: center;
-	width: 16%;
-	}
-	#products table tr th{
-	background-color: black;
-	color:white;
-	}
-	img{
-	max-width: 100px;
-	max-height: 100px;
-	}
-	/*[Section CSS-B start]*/
-	tr:hover{
-	background-color: #fcefdf;
-    color: #2c2111;
-	}
-    tr b:hover{
-    color: #2c2111;
-	}
-    .checkbox{
-    width: 30px;
-    height: 30px;
-    }
-    .quantity{
-    width: 30px;
-    height: 20px;
-    border: solid #c0c0c0 1px;
-    text-align: center;
-    }
+    <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/js/cart.js">
+    <style>
+        /* Add some custom styles if needed */
+        body {
+            padding-top: 100px;
+            display: flex;
+        }
 
-    b{
-        color: #fff;
-    }
+        #products {
+            width: 80%;
+        }
+        #products table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        #products table tr th, #products table tr td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            width: 16%;
+        }
+        #products table tr th {
+            background-color: black;
+            color: white;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        tr:hover {
+            background-color: #fcefdf;
+            color: #2c2111;
+        }
+        .checkbox {
+            width: 30px;
+            height: 30px;
+        }
+        .quantity {
+            width: 30px;
+            height: 20px;
+            border: solid #c0c0c0 1px;
+            text-align: center;
+        }
 
-	#flex{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    }
+        b {
+            color: #fff;
+        }
 
-    .container{
-        display: flex;
-    }
+        #flex {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
 
+        .container {
+            display: flex;
+        }
 
-  #checkout_btn{
-    font-size: 25px;
-    width: 120px;
-    height: 35px;
-    line-height: 35px;
-    color: #d4d4d4;
-    background-color: #787878;
-    border-radius: 5px;
-    top: 35px;
-    left: 61px;
-    transform: translateX(-50%);
-    transition-duration: .3s;
-    text-align: center;
-    /* position: fixed; */
-    z-index: 99;
-  }
-  #checkout_btn:hover{
-    transform: translate(-50%, -3px);
-    box-shadow: 0 3px 10px 0px #787878;
-    cursor: pointer;
-  }
-	
-  </style>
-  </head>
-  <body>
-  
+        #checkout_btn {
+            font-size: 25px;
+            width: 120px;
+            height: 35px;
+            line-height: 35px;
+            color: #d4d4d4;
+            background-color: #787878;
+            border-radius: 5px;
+            top: 35px;
+            left: 61px;
+            transform: translateX(-50%);
+            transition-duration: .3s;
+            text-align: center;
+            z-index: 99;
+        }
+        #checkout_btn:hover {
+            transform: translate(-50%, -3px);
+            box-shadow: 0 3px 10px 0px #787878;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
     {% include 'nav.html' %}
     <div class="container">
         <div id="products">
             <table>
-              <thead>
-                <tr>
-                  <td><input type="checkbox" name="checkboxall"></td>
-                  <th>Image</th>
-                  <th>Product</th>
-                  <th>Storage</th>
-                  <th>Single Price</th>
-                  <th>Amount</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
+                <thead>
+                    <tr>
+                        <td><input type="checkbox" name="checkboxall"></td>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Storage</th>
+                        <th>Single Price</th>
+                        <th>Amount</th>
+                        <th>Total</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    <tr>
+                        <td><input type="checkbox" class="checkbox"></td>
+                        <td><img src="{{ item.image_url }}" alt="{{ item.name }}"></td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.storage }}</td>
+                        <td>${{ item.price }}</td>
+                        <td><input type="number" class="quantity" value="1"></td>
+                        <td>${{ item.price }}</td>
+                        <td><button class="delete">Delete</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
         <div id="checkout_btn">結帳</div>
     </div>
-	
-	<script src="/static/js/cart.js"></script>
-  </body>
+</body>
 </html>

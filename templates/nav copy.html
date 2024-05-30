@@ -5,6 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Pet Shop</title>
     <link rel="icon" href="/static/img/logo.webp">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #b1d4bb;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            margin-right: 20px;
+        }
+        .navbar ul li a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        .navbar ul li a:hover {
+            color: #000000;
+        }
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            color: #000000;
+            text-decoration: none;
+        }
+        .icon-btn i {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     <!-- ======= Header ======= -->
@@ -14,7 +68,7 @@
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <img src="/static/img/logo.webp" alt="">
                 <i class="bi bi-camera"></i>
-                <h1>Minecraft Animal Shop</h1>
+                <h1>Minecraft Pet Shop</h1>
             </a>
             <nav id="navbar" class="navbar">
                 <div class="navbarLeft">
@@ -31,20 +85,11 @@
                 <div class="navbarRight">
                     <ul>
                         <li><a href={{ url_for("cart") }} class="icon-btn"><i class="cart">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
                                 <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
                             </svg></i> Cart</a></li>
-                            {% if 'username' in session %}
-                            <li><a href="" class="px-4">Welcome, {{ session['username'] }}</a></li>
-                            <li>
-                                <form action="/logout" method="post">
-                                    <button type="submit">Log Out</button>
-                                </form>
-                            </li>
-                            {% else %}
-                            <li><a href="{{ url_for('login') }}">Login</a></li>
-                            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-                            {% endif %}
+                        <li><a href={{ url_for("login") }}>login</a></li>
+                        <li><a href={{ url_for("signup") }}>sign up</a></li>
                     </ul>
                 </div>
             </nav><!-- .navbar -->
