@@ -32,8 +32,8 @@ def shop():
     products = conn.execute('SELECT * FROM products').fetchall()
     products_list = [dict(product) for product in products]
     fav_list = []
-    if(session.get('id')):
-        fav = conn.execute('SELECT * FROM favourite WHERE user = ?', (session.get('id'),)).fetchall()
+    if(session.get('username')):
+        fav = conn.execute('SELECT * FROM favourite WHERE username = ?', (session.get('username'),)).fetchall()
         dummy = [dict(f) for f in fav]
         fav_list = [int(f['product']) for f in dummy]
     for item in products_list:
@@ -48,7 +48,25 @@ def shop():
 @app.route('/cart')
 def cart():
     cart = session.get('cart', [])
-    return render_template('cart.html', cart=cart)
+    conn = get_db()
+    products = conn.execute('SELECT * FROM products').fetchall()
+    products_list = [dict(product) for product in products]
+    if(session.get('username')):
+        fav = conn.execute('SELECT * FROM cart WHERE username = ?', (session.get('username'),)).fetchall()
+        cartProducts = [dict(f) for f in fav]
+        for item in cartProducts:
+            for product in products_list:
+                if item['product_id'] == product['id']:
+                    item['name'] = product['name']
+                    item['price'] = product['price']
+                    item['storage'] = product['storage']
+                    item['img'] = './static/img/'+product['image']
+        conn.close()
+        return render_template('cart.html', cart=cartProducts)
+    else:
+        return render_template('cart.html')
+
+
 
 @app.route('/login', methods=['GET'])
 def login():
@@ -119,13 +137,6 @@ def signup_post():
 def about():
     return render_template('about.html')
 
-@app.route('/add_to_cart', methods=['POST'])
-def add_to_cart():
-    product = request.get_json()
-    cart = session.get('cart', [])
-    cart.append(product)
-    session['cart'] = cart
-    return jsonify({'message': 'Product added to cart', 'cart': cart})
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
@@ -142,7 +153,7 @@ def get_products_data():
 @app.route('/api/fav')
 def get_favorite_data():
     conn = get_db()
-    fav = conn.execute('SELECT * FROM favourite WHERE user = ?', (session.get('id'),)).fetchall()
+    fav = conn.execute('SELECT * FROM favourite WHERE username = ?', (session.get('username'),)).fetchall()
     conn.close()
     dummy = [dict(f) for f in fav]
     fav_list = [int(f['product']) for f in dummy]
@@ -155,7 +166,7 @@ def add_cart():
     if product_id is not None:
         try:
             conn = get_db()
-            exist = conn.execute('SELECT * FROM cart WHERE user_id = ? AND product_id = ?',(session.get('id'),int(product_id)))
+            exist = conn.execute('SELECT * FROM cart WHERE username = ? AND product_id = ?',(session.get('username'),int(product_id)))
             dummy = [dict(f) for f in exist]
             # print(dummy)
             if dummy:
@@ -164,39 +175,111 @@ def add_cart():
                 conn.close()
                 return jsonify(success=False)
             else:
-                conn.execute('INSERT INTO cart (product_id, amount, user_id) VALUES (?, ?, ?)', (int(product_id), 1, session.get('id')))
+                conn.execute('INSERT INTO cart (product_id, amount, username) VALUES (?, ?, ?)', (int(product_id), 1, session.get('username')))
                 conn.commit()
                 conn.close()
                 return jsonify(success=True)
         except Exception as e:
             print(f"Error : {e}")
             return jsonify(success=False, erorr="No data prodived")
+        
 @app.route('/api/add_fav', methods=['POST'])
 def add_fav():
     product_id = request.json.get('data')
     if product_id is not None:
         try:
             conn = get_db()
-            conn.execute('INSERT INTO favourite (user, product) VALUES (?, ?)', (session.get('id'), int(product_id)))
+            conn.execute('INSERT INTO favourite (username, product) VALUES (?, ?)', (session.get('username'), int(product_id)))
             conn.commit()
             conn.close()
             return jsonify(success=True)
         except Exception as e:
             print(f"Error : {e}")
             return jsonify(success=False, erorr="No data prodived")
-@app.route('/api/remove_fav',  methods=['POST'])
+        
+@app.route('/api/remove_fav', methods=['POST'])
 def remove_fav():
     product_id = request.json.get('data')
     if product_id is not None:
         try:
             conn = get_db()
-            conn.execute('DELETE FROM favourite WHERE user = ? AND product = ?', (session.get('id'), int(product_id)))
+            conn.execute('DELETE FROM favourite WHERE username = ? AND product = ?', (session.get('username'), int(product_id)))
             conn.commit()
             conn.close()
             return jsonify(success=True)
         except Exception as e:
             print(f"Error : {e}")
             return jsonify(success=False, erorr="No data prodived")
+        
+@app.route('/api/remove_cart', methods=['POST'])
+def remove_cart():
+    product_id = request.json.get('id')
+    print(product_id)
+
+    username = session.get('username')
+    if product_id is not None and username is not None:
+        try:
+            conn = get_db()
+            conn.execute('DELETE FROM cart WHERE username = ? AND product_id = ?', (username, int(product_id)))
+            conn.commit()
+            conn.close()
+            return jsonify(success=True)
+        except Exception as e:
+            print(f"Error: {e}")
+            return jsonify(success=False, error="Failed to remove the item from the cart")
+    return jsonify(success=False, error="No data provided")
+
+
+@app.route('/api/add_amount', methods=['POST'])
+def add_amount():
+    product_id = request.json.get('id')
+    username = session.get('username')
+    new_amount = request.json.get('add')
+    
+    if product_id is not None and username is not None:
+        try:
+            conn = get_db()
+            cursor = conn.cursor()
+            cursor.execute('UPDATE cart SET amount = ? WHERE username = ? AND product_id = ?', (new_amount, username, product_id))
+            conn.commit()
+            cursor.close()
+            return jsonify(success=True)
+        except Exception as e:
+            print(f"Error: {e}")
+            return jsonify(success=False, error="Failed to update the amount")
+    return jsonify(success=False, error="No data provided")
+
+@app.route('/api/checkout', methods=['POST'])
+def checkout():
+    items = request.json.get('items')
+    username = session.get('username')
+
+    if not items or not username:
+        return jsonify(success=False, error="Invalid data provided")
+
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        
+        for item in items:
+            product_id = item['id']
+            quantity = item['quantity']
+
+            # 更新庫存數量
+            cursor.execute('UPDATE products SET storage = storage - ? WHERE id = ?', (quantity, product_id))
+
+            # 從購物車中移除已購買的項目
+            cursor.execute('DELETE FROM cart WHERE username = ? AND product_id = ?', (username, product_id))
+        
+        conn.commit()
+        cursor.close()
+        return jsonify(success=True)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify(success=False, error="Failed to process checkout")
+
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
