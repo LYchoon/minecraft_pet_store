@@ -3,52 +3,81 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Minecraft Pet Store</title>
+    <title>Minecraft Animal Shop</title>
 	<link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 	<link href="/static/css/main.css" rel="stylesheet">
-	  <style>
-    /* Add some custom styles if needed */
-    body {
-		padding-top : 600px;
-		background-image: url("/static/img/Minecraft_mobs_preview.webp");
-		background-size: cover;
-		background-position: center;
-		height: 100%;
-    }
-	/* .container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh; 
-	} */
-	.slogan {
-      text-align: center;
-      /* margin-top: 200px;  */
-	  /* Adjust the margin-top value to position the slogan vertically */
-	  background-color:#ffffff;
-	  opacity:0.5;
-	  top: 100px;
-	  color: black;
+	<link rel="stylesheet" href="/static/css/reset.css">
 
-    }
-    .link {
-      text-align: center;
-    }
-  </style>
+  	<style>
+		/* 下面兩種方法我都試過，但還是沒辦法把背景圖片顯示出來 */
+		/* body{
+			background-image: url("/static/img/Minecraft_mobs_preview.webp");
+			background-size: cover;
+			background-position: center;
+			height: 100%;
+		} */
+		/* .container {
+			padding-top: 100%;
+			background-image: url("/static/img/Minecraft_mobs_preview.webp");
+			background-size: cover;
+			background-position: center;
+		} */
+		.bgImg{
+        	width: 100%;
+    	}
+		.slogan {
+			position: fixed;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+			width: 36%;
+			height: 20%;
+			padding: 30px;
+			top: 35%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		.blue{
+			position: fixed;
+			background-color: rgb(233, 239, 247);
+			border-radius: 30px;
+			width: 36%;
+			height: 20%;
+			padding: 30px;
+			top: 35%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			opacity: 80%;
+		}
+		.slogan h3 {
+			font-size: 24px;
+			font-weight: bold;
+			padding-bottom: 10px;
+		}
+		.container a {
+		  text-decoration: none;
+		  color: rgb(136, 171, 221);
+		  font-size: 20px;
+		}
+		.container a:hover {
+			color: rgb(90, 133, 164);
+		}
+		.link {
+		  text-align: center;
+		}
+	  </style>
   </head>
   <body>
 	{% include 'nav.html' %}
+	<img src="/static/img/bg_animals.png" alt="" class="bgImg">
 	
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="slogan">
-					<h1>Welcome to Minecraft Pet Store!</h1>
-					<p>You can get any mobs in Minecraft you need!</p>
-				</div>
-				<div class="link">
-					<a href={{ url_for("shop") }}>Shop Now</a>
-				</div>
+		<div class="blue"></div>
+		<div class="slogan">
+			<h3>Welcome to Minecraft Animal Shop!✨</h3>
+			<p>You can get any mobs in Minecraft you need!</p>
+			<div class="link">
+				<a href={{ url_for("shop") }}>👾 Shop Now 👾</a>
 			</div>
 		</div>
 	</div>
