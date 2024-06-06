@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, session, g, jsonify
-import sqlite3
+from captcha.image import ImageCaptcha
+import sqlite3, string, random, os
 
 app = Flask(__name__)
 app.secret_key = 'fthydtukfl'
@@ -66,10 +67,27 @@ def cart():
     else:
         return render_template('cart.html')
 
+# 生成驗證碼文本
+def generate_captcha_text(length=5):
+    letters = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(letters) for i in range(length))
 
+# 生成驗證碼圖片
+def generate_captcha_image():
+    captcha_text = generate_captcha_text()
+    image_captcha = ImageCaptcha()
+    captcha_filename = os.path.join('static', 'captcha.png')
+    image_captcha.write(captcha_text, captcha_filename)
+    session['captcha'] = captcha_text
+
+@app.route('/change_captcha', methods=['POST'])
+def change_captcha():
+    generate_captcha_image()
+    return jsonify({'captcha_url': url_for('static', filename='captcha.png')})
 
 @app.route('/login', methods=['GET'])
 def login():
+    generate_captcha_image()    
     return render_template('log_in.html')
 
 @app.route('/login', methods=['POST'])

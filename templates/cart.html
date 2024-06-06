@@ -3,19 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Minecraft Pet Shop</title>
-    <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <title>Minecraft Animal Shop</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/main.css" rel="stylesheet">
     <script src="/static/js/cart.js"></script>
     <style>
         /* Add some custom styles if needed */
-        body {
+        /* body {
             padding-top: 100px;
             display: flex;
-        }
+        } */
 
         #products {
-            width: 80%;
+            justify-content: center;
+            align-items: center;
         }
         #products table {
             width: 80%;
@@ -29,38 +30,39 @@
             height: 100%;
         }
         #products table tr th {
-            background-color: black;
-            color: white;
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
         }
         img {
             max-width: 100px;
             max-height: 100px;
         }
         tr:hover {
-            background-color: #fcefdf;
+            background-color: rgb(232, 242, 245);
             color: #2c2111;
+        }
+        td {
+            text-align: center;
         }
         .checkbox {
             width: 30px;
             height: 30px;
         }
-        .quantity {
-            width: 30px;
-            height: 20px;
-            border: solid #c0c0c0 1px;
-            text-align: center;
-        }
         .quantity-container {
             display: flex;
-            width: 100%;
+            /* width: 100%; */
             align-items: center;
             justify-content: center;
+            height: 100%;
+            text-align: center;
+
         }
         .quantity {
             width: 50px;
             height: 30px;
             text-align: center;
             border: 1px solid #ccc;
+            border-radius: 5px;
             margin: 0 5px;
         }
         .quantity button {
@@ -68,7 +70,7 @@
             height: 30px;
             border: 1px solid #ccc;
             background: none;
-            font-size: 16px;
+            font-size: 20px;
             cursor: pointer;
         }
         #flex {
@@ -81,6 +83,7 @@
         .container {
             display: flex;
             justify-content: center;
+            padding: 150px 0;
         }
 
         #checkout_btn {
@@ -88,9 +91,8 @@
             width: 120px;
             height: 35px;
             line-height: 35px;
-            color: #d4d4d4;
-            background-color: #787878;
-            border-radius: 5px;
+            background-color: rgb(155, 157, 127);
+            border-radius: 20px;
             transform: translateX(-50%);
             transition-duration: .3s;
             text-align: center;
@@ -103,21 +105,45 @@
         }
         footer{
             position: fixed;
+            justify-content: space-between;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            padding: 15px;
             bottom: 0;
-            width: 100%;
-            background-color: #fff;
+            width: 70%;
+            background-color: #f5ece0;
+            left: 15%;
         }
         h3{
             padding: 10px;
             color: black;
             left: 10px;
         }
+        button{
+            border: none;
+            background-color: #afc3d4;
+            border-radius: 30px;
+            padding: 5px 8px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #8c9bb3;
+        }
         .flex{
             display: flex;
             padding: 20px;
+            justify-content: space-between;
         }
         .checkout{
             margin-left: 100px;
+        }
+        .checkboxall{
+            width: 30px;
+            height: 30px;
+        }
+        footer h3{
+            font-size: 24px;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -128,7 +154,7 @@
             <table>
                 <thead>
                     <tr>
-                        <td><input type="checkbox" name="checkboxall" class="checkboxall"></td>
+                        <th><input type="checkbox" name="checkboxall" class="checkboxall"></th>
                         <th>Image</th>
                         <th>Product</th>
                         <th>Storage</th>
