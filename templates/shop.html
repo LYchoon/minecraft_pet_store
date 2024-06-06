@@ -6,7 +6,7 @@
     <title>Minecraft Pet Shop</title>
 	<link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 	<link href="/static/css/main.css" rel="stylesheet">
-	  <style>
+	  <!-- <style>
     /* Add some custom styles if needed */
     body {
 	  padding-top : 100px;
@@ -89,6 +89,125 @@
 	font-weight:bold;
 	}
 
+  </style> -->
+  <style>
+    /* Add some custom styles if needed */
+    .body {
+	  padding-top : 150px;
+	  display: flex;
+    }
+	
+	#categories{
+	  display: flex;
+	  flex-direction: column;
+	  margin-top: 170px;
+	  justify-content: space-between;
+	  background-color: #f5ece0;
+	  border-bottom-right-radius: 10px;
+	  border-top-right-radius: 10px;
+	  padding: 20px 20px;
+	  width : 150px;
+	  height : 300px;
+	  font-size: 16px;
+	  position: fixed;
+
+	}
+	#products{
+	padding-top: 150px;;
+	width: 100%;
+	padding-left : 200px;
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	}
+	img{
+	max-width: 100%;
+	max-height: 100%;
+	}
+	
+	.select{
+	border-radius: 5px;
+	height: 20px;
+	font-size: 12px;
+	}
+	
+	.items{
+	background-color:rgb(216, 231, 235);
+	text-align:center;
+	border-radius:10px;
+	width:180px;
+	height:300px;
+	color:black;
+	margin: 20px 15px;
+	padding: 20px;
+	}
+	.items img{
+	padding:8px 0;
+		max-height: 110px;
+	}
+	.items p, tr, td, .storage{
+		padding: 5px;
+	}
+	
+	.items table{
+	align-items:center;
+	font-size:14px;
+	margin:0 auto;
+	}
+	.fav_btn{
+	max-width:24px;
+	max-height:24px;
+	cursor: pointer;
+	margin-right:6px;
+	}
+
+	.faved_btn{
+	max-width:24px;
+	max-height:24px;
+	cursor: pointer;
+	margin-right:6px;
+	}
+
+	.add_to_cart{
+	max-width:24px;
+	max-height:24px;
+	cursor: pointer;
+	}
+
+	.name{
+	font-weight:bold;
+	padding-bottom: 5px;
+	}
+	#max_price{
+		width: 100%;
+		margin-left: 10px;
+	}
+	#min_price{
+		width: 100%;
+		margin-left: 10px;
+	}
+	#categories h4{
+		padding-left: 20px;
+		font-size: 26px;
+		font-weight: bold;
+	}
+	.fav{
+		display: flex;
+	}
+	input{
+		border-radius: 5px;
+		border: 1px solid black;
+		height: 20px;
+		width: 16px;
+		font-size: 14px;
+		margin-right: 5px;
+	}
+	.flex{
+		display: flex;
+		justify-content: baseline;
+	}
+
+
   </style>
   </head>
   <body>
@@ -98,12 +217,20 @@
 	<div id="categories">
 		<h4>Filter</h4>
 		
-		<input placeholder="price" id="max_price">
-		<input placeholder=">price" id="min_price">
+		<div class="flex">
+			<p>Max:
+			</p>
+			<input placeholder="price" id="max_price">
+		</div>
+		<div class="flex">
+			<p>Min:
+			</p>
+			<input placeholder=">price" id="min_price">
+		</div>
 		
 		<label for="habitat">Habitat</label>
 		<select id="habitat" class="select">
-			<option value="all">ALL</option>
+			<option value="all">All</option>
 			<option value="Land">Land</option>
 			<option value="Ocean">Ocean</option>
 			<option value="Sky">Sky</option>
@@ -111,15 +238,15 @@
 		
 		<label for="behavior">Behavior</label>
 		<select id="behavior" class="select">
-			<option value="all">ALL</option>
+			<option value="all">All</option>
 			<option value="Passive">Passive</option>
 			<option value="Neutral">Neutral</option>
 			<option value="Hostile">Hostile</option>
 		</select>
 		
-		<div>
-        <input type="checkbox" id="fav">
-        <label for="fav">Favorite</label>
+		<div class="flex">
+			<input type="checkbox" id="fav">
+			<label for="fav">Favorite</label>
         </div>
 		
 	</div>
